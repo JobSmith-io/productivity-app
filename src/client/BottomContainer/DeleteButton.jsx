@@ -2,7 +2,7 @@ import React from "react";
 
 const DeleteButton = () => {
   return (
-  <div>Delete Button</div>
+  <button>Delete Button</button>
   );
 };
 

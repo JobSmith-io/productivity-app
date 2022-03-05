@@ -47,7 +47,10 @@ const ListContainer = () => {
     getData();
   },[]); 
 
-  
+  // delete an entry on the table 
+  const deleteEntry = ()=> {
+      console.log('find object to delete form list');
+  };
   // get request func for fetching the jobs from the database
   // deconstruct {application_id, company, role, url } =data 
   const jobsObj = jobs.map((job)=> {

@@ -2,7 +2,7 @@ import React from "react";
 import DeleteButton from "./DeleteButton";
 
 const Job = (props) => {
-  // const {company, role, url} = props.props;
+  const {company, role, url, applicationId } = props.props;
   console.log(props); 
   const deleteEntry = (id)=> {
     console.log('delete'); 
@@ -11,11 +11,11 @@ const Job = (props) => {
   return (
     <>
     <tr>
-    <td>{props.company}</td>
-    <td>{props.role}</td>
-    <td>{props.url}</td>
+    <td>{company}</td>
+    <td>{role}</td>
+    <td>{url}</td>
     </tr>
-      <DeleteButton onClick={deleteEntry(props.applicationId)} />
+      <DeleteButton onClick={deleteEntry(applicationId)} />
     </>
   );
 };

@@ -1,13 +1,17 @@
 import React from "react";
 import DeleteButton from "./DeleteButton";
 
-const Job = () => {
+const Job = (props) => {
+  const {company, role, url} = props;
+
   return (
     <>
-      <div>Job</div>
-      <DeleteButton />
+      <div>{company}</div>
+      <div>{role}</div>
+      <div>{url}</div>
+      {/* <DeleteButton /> */}
     </>
   );
 };
 
-export default DeleteButton; 
+export default Job; 

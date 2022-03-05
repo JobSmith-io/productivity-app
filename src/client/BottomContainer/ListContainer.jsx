@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Job from './Job';
 import Filter from './Filter';
 
+
 const ListContainer = () => {
   //hook to set state for job component to be rendered
   const [jobs, setJobs] = useState([]);
@@ -50,7 +51,7 @@ const ListContainer = () => {
   // get request func for fetching the jobs from the database
   // deconstruct {application_id, company, role, url } =data 
   const jobsObj = jobs.map((job)=> {
-      return <Job key={job.applicationId} props = {job}/>
+      return <Job key={job.applicationId} props={job}/>
   });
     // populate jobs with 
   return (
@@ -64,7 +65,14 @@ const ListContainer = () => {
     </form> 
     {/* <Filter/> */}
     {/* unique key from application_id */}
+    <table>
+      <tr className="columnHeader">
+    <th>Company</th>
+    <th>Role</th>
+    <th>Url</th>
+    </tr> 
     {jobsObj}
+    </table> 
   </div>
   );
 }

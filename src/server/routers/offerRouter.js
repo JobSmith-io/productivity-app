@@ -2,22 +2,22 @@ const express = require('express')
 const router = express.Router()
 
 // Router for initial get request for all applications
-router.get('/offer', (req, res) => {
+router.get('/:id', (req, res) => {
   return res.status(200).json({})
 })
 
 // Router for posting a new application
-router.post('/offer', (req, res) => {
+router.post('/', (req, res) => {
   return res.status(200).json({})
 })
 
 // Router to update application (Response, Interview, Offer)
-router.put('/offer', (req, res) => {
+router.put('/', (req, res) => {
   return res.status(200).json({})
 })
 
 // Router to delete application
-router.delete('/offer', (req, res) => {
+router.delete('/', (req, res) => {
   return res.status(200).json({})
 })
 

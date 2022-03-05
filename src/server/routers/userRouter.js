@@ -10,7 +10,7 @@ const router = express.Router();
 */ 
 
 // Router for initial get request for all applications
-router.get('/:id', (req, res) => {
+router.get('/:id', getUser, getAllUsers, (req, res) => {
   return res.status(200).json({});
 })
 

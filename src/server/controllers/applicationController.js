@@ -4,17 +4,17 @@ const applicationController = {};
 
 //TODO: switch hard coded user_id to pass in req.body
 // SET DEFAULTS:
-let company_name, role, url, responded, response_date, interview_id, offer_id,
+let company_name, url, responded, response_date, interview_id, offer_id,
 application_date, document_id, role_id, user_id;
 
 // _id is defaulted to 1 bc users are a stretch feature
-[company_name, role, url, responded, response_date, interview_id, offer_id,
-  application_date, document_id, role_id, user_id] = ['DEFAULT', 'DEFAULT', 'DEFAULT', 't', Date.now().toLocaleString(), -1, 1];
+[company_name, url, responded, response_date, interview_id, offer_id,
+  application_date, document_id, role_id, user_id] = ['DEFAULT', 'DEFAULT', 't', Date.now().toLocaleString(), -1, 1];
 
 // Get applications from a user
 applicationController.getApplication = (req, res, next) => {
   const { id } = req.params;
-  const queryString = 'SELECT * FROM applications WHERE user_id = $1, _id = $2';
+  const queryString = 'SELECT * FROM applications WHERE user_id = $1 AND _id = $2';
 
   db.query(queryString, [user_id, id])
     .then((data) => {
@@ -28,9 +28,9 @@ applicationController.getApplication = (req, res, next) => {
 }
 
 applicationController.getAllApplications = (req, res, next) => {
-  const queryString = 'SELECT * FROM applications WHERE user_id = $1';
+  const queryString = 'SELECT * FROM applications';
 
-  db.query(queryString, [user_id])
+  db.query(queryString)
     .then((data) => {
       res.locals.allApplications = data.rows;
       return next();
@@ -42,13 +42,15 @@ applicationController.getAllApplications = (req, res, next) => {
 }
 
 // Add a new application to a user
-applicationController.addApplications = (req, res, next) => {
-  const queryString = 'INSERT INTO applications (company_name, role, url, responded, response_date, interview_id, offer_id, application_date, document_id, role_id, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11 RETURNING *);';
+applicationController.addApplication = (req, res, next) => {
+  
+  const queryString = 'INSERT INTO applications (company_name, url, responded, response_date, interview_id, offer_id, application_date, document_id, role_id, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;';
 
   // TODO: CHECK THAT THIS IS ESLINT
-  { company_name, role_id, url } = req.body;
+  const { company_name, role_id, url } = req.body;
+  console.log("In add Application", company_name, role_id, url, "req.body", req.body);
 
-  const variables = [company_name, role_id, url, responded, response_date, interview_id, offer_id, application_date, document_id, role_id, user_id];
+  const variables = [company_name, url, responded, response_date, interview_id, offer_id, application_date, document_id, role_id, user_id];
 
   db.query(queryString, variables)
     .then((data) => {

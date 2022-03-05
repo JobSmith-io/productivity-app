@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 const app = express();
 dotenv.config();
-const { PORT } = process.env;
+const { SERVER_PORT } = process.env;
 
 const apiRouter = require('./routers/apiRouter');
 
@@ -31,6 +31,6 @@ app.use((err, req, res, next) => {
   res.status(errObj.status).send(errObj.message);
 });
 
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+app.listen(SERVER_PORT, () => {
+  console.log(`Listening on port ${SERVER_PORT}`);
 });

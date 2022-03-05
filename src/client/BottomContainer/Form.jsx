@@ -1,6 +1,6 @@
 import React from "react";
 
-{/* <label Htmlfor="company">Company</label>
+{/* <label htmlFor="company">Company</label>
 <input type="text" name="company" value={} /> */}
 
 const Form = () => {
@@ -13,13 +13,13 @@ const submit = ()=> {
   return (
     <>
       <form className="CreateApp" onSubmit={submit} >
-          <label Htmlfor="company">Company</label>
+          <label htmlFor="company">Company</label>
           <input type="text" name="company" value={"hello"} />
-          <label Htmlfor="role">role</label>
+          <label htmlFor="role">role</label>
           <input type="text" name="role" value={"yoo"} />
-          <label Htmlfor="date">date</label>
+          <label htmlFor="date">date</label>
           <input type="text" name="date" value={"nahh"} />
-          <label Htmlfor="url">url</label>
+          <label htmlFor="url">url</label>
           <input type="text" name="url" value={"turtle"} />
           <input type="submit" value="submit"/>
       </form>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "./Form";
 import Job from './Job';
 
@@ -12,11 +12,14 @@ const ListContainer = () => {
     console.log('getData invoked!')
   }
 
-  getData();
+  useEffect(()=> {
+    getData();
+  },[]); 
+  
   // get request func for fetching the jobs from the database
   // deconstruct {application_id, company, role, url } =data 
   const jobsObj = jobs.map((job)=> {
-      return <Job key= {jobs.applicationId} props={jobs}/>
+      return <Job key={job.applicationId} props={job}/>
   });
     // populate jobs with 
   return (

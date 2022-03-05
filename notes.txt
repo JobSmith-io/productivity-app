@@ -35,3 +35,59 @@ SELECT * FROM users;
 PostgreSQL DocumentationPostgreSQL Documentation
 CREATE TABLE
 
+================================================================
+https://stackoverflow.com/questions/6677517/update-if-different-changed
+
+update table1
+   set col1 = 'hello',
+       col2 = 'hello',
+       col3 = 'hello'
+/* Only update rows from CustomerId 100, 101, 102 & 103 */
+where table1.CustomerId IN (100, 101, 102, 103)
+/* AVOID NET ZERO CHANGES */
+  and exists 
+    (
+    /* DESTINATION */
+    select table1.col1
+           table1.col2
+           table1.col3
+    except
+    /* SOURCE */
+    select z.col1,
+           z.col2,
+           z.col3
+      from #anytemptableorsubquery z
+     where z.CustomerId = table1.CustomerId
+    )
+================================================================
+
+
+CURL COMMANDS:
+
+
+================================================================
+ROLE:
+/**
+   * title: String
+   * department: String
+   */
+
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"title": "Grub Harvester", "department": "Accounting"}' \
+    http://localhost:3000/api/role
+
+
+curl -X GET -H "Content-Type: application/json" \
+    http://localhost:3000/api/role/1
+
+
+curl -X PATCH -H "Content-Type: application/json" \
+    -d '{"title": "Onion Washer", "department": "Development"}' \
+    http://localhost:3000/api/role/1
+
+
+curl -X DELETE -H "Content-Type: application/json" \
+    http://localhost:3000/api/role/1
+
+
+================================================================

@@ -1,7 +1,12 @@
 import React from "react";
+import BottomContainer from './BottomContainer/BottomContainer';
+import TopContainer from './TopContainer/TopContainer';
+
 
 const App = () => {
-    return <div>Hello  
+    return <div>
+      <TopContainer/>
+      <BottomContainer/>
     </div>;
   };
 

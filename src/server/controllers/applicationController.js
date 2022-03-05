@@ -1,26 +1,13 @@
 const db = require('../models/dbConnection');
 
-const applicationController = {}
-
-applicationController.getAllApplications = (req, res, next) => {
-  const queryString = ''
-
-  db.query(queryString)
-    .then(data => {
-      // do smth
-      return next();
-    })
-    .catch(err => next({
-      log: `Error in applicationController.getAllApplications: ${err}`,
-      message: { err: 'Error getting applications' }
-    }));
-}
+const applicationController = {};
 
 // Get applications from a user
 applicationController.getApplications = (req, res, next) => {
-  const queryString = ''
+  const { user_id } = req.body;
+  const queryString = 'SELECT * FROM applications WHERE user_id = $1';
 
-  db.query(queryString)
+  db.query(queryString, [user_id])
     .then(data => {
       // do smth
       return next();
@@ -31,9 +18,25 @@ applicationController.getApplications = (req, res, next) => {
     }));
 }
 
+applicationController.getAllApplications = (req, res, next) => {
+  const queryString = 'SELECT * FROM applications'
+
+  db.query(queryString)
+    .then(data => {
+      // do smth
+      res.locals.allApplications = data.rows
+      return next();
+    })
+    .catch(err => next({
+      log: `Error in applicationController.getAllApplications: ${err}`,
+      message: { err: 'Error getting applications' }
+    }));
+}
+
 // Add a new application to a user
 applicationController.addApplications = (req, res, next) => {
-  const queryString = ''
+  
+  const queryString = 'INSERT INTO applications (company, role, url) VALUES ($1, $2, $3);';
 
   const variables = [];
 

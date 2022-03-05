@@ -3,7 +3,6 @@ import DeleteButton from "./DeleteButton";
 
 const Job = (props) => {
   const {company, role, url} = props.props;
-  console.log("jobs component props", props);
   return (
     <>
       <div>{company}</div>

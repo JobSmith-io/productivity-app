@@ -1,0 +1,37 @@
+DON'T PUT ANYTHING YOU DON'T WANT THE WORLD TO SEE:
+================================================================
+TODO: CREATE DUMP OF DB TO PASS ON TO ITERATORS
+TODO: REMAKE ERD WITH NEW NAMING
+================================================================
+ENTER YOUR POSTGRESQL ENVIRONMENT USING THE HEROKU CLI:
+heroku pg:psql -a jobsmith
+================================================================
+https://www.postgresql.org/docs/9.1/sql-createtable.html
+NOTE: remove ; in command line
+CREATE TABLE
+CREATE TABLE users (
+    id          integer PRIMARY KEY DEFAULT nextval('serial'),
+    password    varchar NOT NULL,
+    username    varchar NOT NULL,
+);
+    code        char(5) CONSTRAINT firstkey PRIMARY KEY,
+    title       varchar(40) NOT NULL,
+    did         integer NOT NULL,
+    date_prod   date,
+    kind        varchar(10),
+    len         interval hour to minute
+CREATE TABLE distributors (
+     did    integer PRIMARY KEY DEFAULT nextval('serial'),
+     name   varchar(40) NOT NULL CHECK (name <> '')
+);
+================================================================
+INSERT INTO TABLE
+INSERT INTO users(password, username)
+VALUES (test123, Jaloe)
+RETURNING *;
+================================================================
+READ ALL IN TABLE:
+SELECT * FROM users;
+PostgreSQL DocumentationPostgreSQL Documentation
+CREATE TABLE
+

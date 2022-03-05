@@ -48,13 +48,15 @@ const ListContainer = () => {
   },[]); 
 
   // delete an entry on the table 
-  const deleteEntry = ()=> {
-      console.log('find object to delete form list');
+  const deleteEntry = (id)=> {
+      console.log('user wants this id deleted', id);
+      //setJobs([...jobs].filter(obj=> obj.applicationId !== id))
+
   };
   // get request func for fetching the jobs from the database
   // deconstruct {application_id, company, role, url } =data 
   const jobsObj = jobs.map((job)=> {
-      return <Job key={job.applicationId} props={job}/>
+      return <Job key={job.applicationId} deleteEntry={deleteEntry} props={job}/>
   });
     // populate jobs with 
   return (

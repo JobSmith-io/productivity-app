@@ -13,9 +13,13 @@ const ListContainer = () => {
 
   //query to fetch data
   const getData = ()=> {
-    const fakeData = [{applicationId: 1, company: "google", role: "software engineer", url: "www.hello.com"}, {applicationId:0, company: "amazon", role: "senior software engineer", url: "www.yello.com"}]; 
-    setJobs(fakeData);
+    // const fakeData = [{applicationId: 1, company: "google", role: "software engineer", url: "www.hello.com"}, {applicationId:0, company: "amazon", role: "senior software engineer", url: "www.yello.com"}]; 
+    // setJobs(fakeData);
     // console.log('getData invoked!')
+    fetch("api/application")
+      .then(res => res.json())
+      .then((data) => setJobs(data))
+      .catch(console.log("error in getdata"))
   };
 
   const submit = ()=> {
@@ -27,11 +31,15 @@ const ListContainer = () => {
         url: queryURL
       })
     //post request
-    // fetch("/api/applications", {
-    //   method: 'POST',
-    //   body: JSON.stringify(query)
-    // })
-    console.log("submit", query);
+    fetch("/api/application", {
+      method: 'POST',
+      body: JSON.stringify(query)
+    })
+      .then(res => res.json())
+      .then(res => {
+        setJobs([...jobs, res.locals.user])
+      })
+      .catch(console.log("error in post add application"))
   };
 
   useEffect(()=> {
@@ -50,8 +58,8 @@ const ListContainer = () => {
     <div>Form</div>
       <form className="CreateApp" onSubmit={submit} >
       <input type="text" name="company-input" placeholder="company" onChange={(e)=> {setQueryCompany(e.target.value)}}/>
-      <input type="text" name="role-input" placeholder="role" onChange={(e)=> {setQueryCompany(e.target.value)}}/>
-      <input type="text" name="url-input" placeholder="url" onChange={(e)=> {setQueryCompany(e.target.value)}}/>
+      <input type="text" name="role-input" placeholder="role" onChange={(e)=> {setQueryRole(e.target.value)}}/>
+      <input type="text" name="url-input" placeholder="url" onChange={(e)=> {setQueryURL(e.target.value)}}/>
       <input type="submit" value="Add Application"/>
     </form> 
     {/* <Filter/> */}

@@ -1,4 +1,3 @@
-// need to npm i pg
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
 

@@ -96,7 +96,7 @@ module.exports = {
     // HtmlWebpackPlugin will take the bundle.js file and insert it inline into a
     // index.html file inside the dist/build directory. You can pass in a template page
     new HtmlWebpackPlugin({
-      template: "./index.html", // yes, htmlWebpack only works in development// index html is placed in root in RAM because it is a feature of setting the mode as development.
+      template: "./src/client/index.html", // yes, htmlWebpack only works in development// index html is placed in root in RAM because it is a feature of setting the mode as development.
     }),
   ],
 };

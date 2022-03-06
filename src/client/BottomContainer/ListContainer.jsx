@@ -19,26 +19,34 @@ const ListContainer = () => {
     // console.log('getData invoked!')
     fetch("api/application")
       .then(res => res.json())
-      .then((data) => setJobs(data))
-      .catch(console.log("error in getdata"))
+      .then((data) => {
+        console.log("fetch" , data)
+        setJobs(data.allApplications)
+      })
+      .catch(err => console.log("inside getall ", err))
   };
 
   const submit = ()=> {
     //consolidate state from form input
-    setQuery(
-      {
+    const query = {
         company_name: queryCompany,
         role_id: queryRole,
         url: queryURL
-      })
+      };
+
+    console.log()
     //post request
     fetch("/api/application", {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(query)
     })
       .then(res => res.json())
       .then(res => {
-        setJobs([...jobs, res.locals.user])
+        setJobs([...jobs, res.application])
+        console.log(jobs)
       })
       .catch(console.log("error in post add application"))
   };
@@ -48,15 +56,15 @@ const ListContainer = () => {
   },[]); 
 
   // delete an entry on the table 
-  const deleteEntry = (id)=> {
-      console.log('user wants this id deleted', id);
-      //setJobs([...jobs].filter(obj=> obj.applicationId !== id))
+  // const deleteEntry = (id)=> {
+  //     console.log('user wants this id deleted', id);
+  //     //setJobs([...jobs].filter(obj=> obj.applicationId !== id))
+  // };
 
-  };
   // get request func for fetching the jobs from the database
   // deconstruct {application_id, company, role, url } =data 
   const jobsObj = jobs.map((job)=> {
-      return <Job key={job.applicationId} deleteEntry={deleteEntry} props={job}/>
+      return <Job key={`v${job._id}`} setJobs={setJobs} props={job}/>
   });
     // populate jobs with 
   return (
@@ -70,12 +78,14 @@ const ListContainer = () => {
     </form> 
     {/* <Filter/> */}
     {/* unique key from application_id */}
-    <table>
+    <table> 
+        <thead> 
       <tr className="columnHeader">
     <th>Company</th>
     <th>Role</th>
     <th>Url</th>
     </tr> 
+    </thead>
     {jobsObj}
     </table> 
   </div>

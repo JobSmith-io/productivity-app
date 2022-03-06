@@ -1,36 +1,65 @@
 const db = require('../models/dbConnection');
 
-const interviewController = {}
+const interviewController = {};
 
-// Get interview from a user
+// Get an interview
+// NOTE: if frontend sends request to /api/interview/1
+// we will return all the interviews for application with id 1
+// if the request is sent to /api/interview/1/2
+// we will return a specific interview that has id 2
+// if the request is sent to /api/interview
+// we will return all the interviews
 interviewController.getInterview = (req, res, next) => {
-  const { _id } = req.params;
+  const { id } = req.params;
+
+  // Check if there's no id we want to jump to next middleware
+  if (!id) return next();
+
   const queryString = 'SELECT * FROM interviews WHERE _id = $1';
 
-  db.query(queryString, [_id]);
-    .then(data => {
+  db.query(queryString, [id])
+    .then((data) => {
       res.locals.interview = data.rows[0];
       return next();
     })
-    .catch(err => next({
+    .catch((err) => next({
       log: `Error in interviewController.getInterview: ${err}`,
-      message: { err: 'Error getting Interview' }
+      message: { err: 'Error getting Interview' },
     }));
-}
+};
 
-interviewController.getAllInterview = (req, res, next) => {
-  const queryString = 'SELECT * FROM interviews'
+interviewController.getAllInterviewsForApplication = (req, res, next) => {
+  const { application_id, id } = req.params;
 
-  db.query(queryString)
-    .then(data => {
+  // Check if id (interview) was passed in
+  if (!application_id || id) return next();
+
+  const queryString = 'SELECT * FROM ';
+
+  db.query(queryString, [application_id])
+    .then((data) => {
       res.locals.allInterviews = data.rows;
       return next();
     })
-    .catch(err => next({
-      log: `Error in interviewController.getAllInterview: ${err}`,
-      message: { err: 'Error getting interview' }
+    .catch((err) => next({
+      log: `Error in interviewController.getAllInterviewsForApplication: ${err}`,
+      message: { err: 'Error getting Interview for Application' },
     }));
-}
+};
+
+interviewController.getAllInterviews = (req, res, next) => {
+  const queryString = 'SELECT * FROM interviews';
+
+  db.query(queryString)
+    .then((data) => {
+      res.locals.allInterviews = data.rows;
+      return next();
+    })
+    .catch((err) => next({
+      log: `Error in interviewController.getAllInterview: ${err}`,
+      message: { err: 'Error getting all interviews' },
+    }));
+};
 
 // Add a new interview to a user
 interviewController.addInterview = (req, res, next) => {
@@ -45,7 +74,7 @@ interviewController.addInterview = (req, res, next) => {
     })
     .catch(err => next({
       log: `Error in interviewController.addInterview: ${err}`,
-      message: { err: 'Error adding Interview' }
+      message: { err: 'Error adding Interview' },
     }));
 }
 
@@ -63,7 +92,7 @@ interviewController.updateInterview = (req, res, next) => {
     })
     .catch(err => next({
       log: `Error in interviewController.updateInterview: ${err}`,
-      message: { err: 'Error updating Interview' }
+      message: { err: 'Error updating Interview' },
     }));
 }
 
@@ -78,8 +107,8 @@ interviewController.deleteInterview = (req, res, next) => {
     })
     .catch(err => next({
       log: `Error in interviewController.deleteInterview: ${err}`,
-      message: { err: 'Error deleting Interview' }
+      message: { err: 'Error deleting Interview' },
     }));
 }
 
-module.exports = interviewController
+module.exports = interviewController;

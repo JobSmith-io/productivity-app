@@ -1,10 +1,10 @@
 const db = require('../models/dbConnection');
 
-const documentController = {}
+const documentController = {};
 
 documentController.getAllDocument = (req, res, next) => {
-  const queryString = ''
-
+  const queryString = 'SELECT * FROM documents';
+  
   db.query(queryString)
     .then(data => {
       // do smth

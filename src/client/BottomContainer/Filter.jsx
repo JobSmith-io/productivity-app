@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Filter = () => {
-  const submit = ()=> {
-    console.log('submit');
-  }
+  const [displayFilter, setDisplayFilter ] = useState(false)
+
+  const dropDown = <div>
+    <p>Filter1</p>
+    <p>Filter2</p>
+    <p>Filter3</p>
+    <p>Filter4</p>
+    <p>Filter5</p>
+  </div>
+
   return (
     <>
-    <div>Filter</div>
-    <form className="filter" onSubmit={submit} >
-        <label htmlFor="company">Company</label>
-        <input type="text" name="company" value={"hello"} />
-        <label htmlFor="role">role</label>
-        <input type="text" name="role" value={"yoo"} />
-        <input type="submit" value="submit"/>
-    </form>
+      <div onClick={() => setDisplayFilter(!displayFilter)}>filter</div>
+      { displayFilter ? 
+        <div>{dropDown}</div> : 
+        null
+      }
     </>
   )
-};
+}
 
 export default Filter; 

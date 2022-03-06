@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 import JobExtended from './JobExtended'
+import roleMap from "../roleMap";
 
 const Job = (props) => {
   const { company_name, role_id, url } = props.job;
-  const { jobs, setJobs } = props;
-  const [isExtended, setIsExtended] = useState(false);
+  const { setJobs } = props;
+  const [isExtended, setIsExtended] = useState(props.job.isExtended);
 
   return (
     <>
-      <tbody onClick={() => setIsExtended(!isExtended)}>
-        <tr>
+      <tbody>
+        <tr onClick={() => {
+          setIsExtended(isExtended ? false : true);
+          props.job.isExtended = props.job.isExtended ? false : true;
+        }}>
           <td>{company_name}</td>
-          <td>{role_id}</td>
+          <td>{roleMap[role_id]}</td>
           <td>{url}</td>
-          {isExtended ? <JobExtended job={props.job} jobs={jobs} setJobs={setJobs} /> : null}
+        </tr>
+        <tr>
+          {isExtended ? <JobExtended job={props.job} setJobs={setJobs} /> : null}
         </tr>
       </tbody>
       

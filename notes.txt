@@ -72,6 +72,7 @@ ROLE:
    * department: String
    */
 
+
 curl -X POST -H "Content-Type: application/json" \
     -d '{"title": "Grub Harvester", "department": "Accounting"}' \
     http://localhost:3000/api/role

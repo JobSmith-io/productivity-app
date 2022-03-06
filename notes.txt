@@ -95,3 +95,13 @@ curl -X DELETE -H "Content-Type: application/json" \
 
 
 ================================================================
+LOOK AT TABLES
+
+SELECT * FROM information_schema.tables
+
+================================================================
+
+
+JOIN APPLICATION AND INTERVIEW
+
+

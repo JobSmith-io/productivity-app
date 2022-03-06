@@ -5,8 +5,7 @@ import Job from './Job';
 const ListContainer = () => {
   //hook to set state for job component to be rendered
   const [jobs, setJobs] = useState([]);
-  //hook to update query from form component to be passed into getData
-  const [query, setQuery] = useState({});
+  
   const [queryCompany, setQueryCompany] = useState("")
   const [queryRole, setQueryRole] = useState("")
   const [queryURL, setQueryURL] = useState("")
@@ -19,13 +18,15 @@ const ListContainer = () => {
     fetch("api/application")
       .then(res => res.json())
       .then((data) => {
-        console.log("fetch" , data)
         setJobs(data.allApplications)
       })
       .catch(err => console.log("inside getall ", err))
   };
 
-  const submit = ()=> {
+  const submit = (e)=> {
+    // prevent page refresh
+    e.preventDefault();
+
     //consolidate state from form input
     const query = {
         company_name: queryCompany,
@@ -47,7 +48,7 @@ const ListContainer = () => {
         setJobs([...jobs, res.application])
         console.log(jobs)
       })
-      .catch(console.log("error in post add application"))
+      .catch((err) => console.log("error in post add application: ", err))
   };
 
   useEffect(()=> {
@@ -63,13 +64,13 @@ const ListContainer = () => {
   // get request func for fetching the jobs from the database
   // deconstruct {application_id, company, role, url } =data 
   const jobsObj = jobs.map((job)=> {
-      return <Job key={`v${job._id}`} setJobs={setJobs} props={job}/>
+      return <Job key={`v${job._id}`} jobs={jobs} setJobs={setJobs} props={job}/>
   });
     // populate jobs with 
   return (
     <div>
     <div>Form</div>
-      <form className="CreateApp" onSubmit={submit} >
+      <form className="CreateApp" onSubmit={(e) => submit(e)} >
       <input type="text" name="company-input" placeholder="company" onChange={(e)=> {setQueryCompany(e.target.value)}}/>
       <input type="text" name="role-input" placeholder="role" onChange={(e)=> {setQueryRole(e.target.value)}}/>
       <input type="text" name="url-input" placeholder="url" onChange={(e)=> {setQueryURL(e.target.value)}}/>

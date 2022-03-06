@@ -134,7 +134,7 @@ applicationController.updateApplication = (req, res, next) => {
 
 // Delete a user's application
 applicationController.deleteApplication = (req, res, next) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const queryString = 'DELETE FROM applications WHERE _id=$1 RETURNING *;';
 
   db.query(queryString, [id])

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import Job from './Job';
-import Filter from './Filter';
 
 const ListContainer = () => {
   //hook to set state for job component to be rendered

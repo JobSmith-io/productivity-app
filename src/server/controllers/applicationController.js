@@ -4,8 +4,16 @@ const applicationController = {};
 
 //TODO: switch hard coded user_id to pass in req.body
 // SET DEFAULTS:
-let company_name, url, responded, response_date, interview_id, offer_id,
-application_date, document_id, role_id, user_id;
+let company_name,
+  url,
+  responded,
+  response_date,
+  interview_id,
+  offer_id,
+  application_date,
+  document_id,
+  role_id,
+  user_id;
 
 // _id is defaulted to 1 bc users are a stretch feature
 [company_name, url, responded, response_date, interview_id, offer_id,
@@ -43,7 +51,7 @@ applicationController.getAllApplications = (req, res, next) => {
 
 // Add a new application to a user
 applicationController.addApplication = (req, res, next) => {
-  
+
   const queryString = 'INSERT INTO applications (company_name, url, responded, response_date, interview_id, offer_id, application_date, document_id, role_id, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;';
 
   // TODO: CHECK THAT THIS IS ESLINT
@@ -89,7 +97,7 @@ where table1.CustomerId IN (100, 101, 102, 103)
  */
 
 // Update the user's application
-applicationController.updateApplications = (req, res, next) => {
+applicationController.updateApplication = (req, res, next) => {
   // design a query string that will update what is changed
   /**
    * user_id
@@ -107,9 +115,11 @@ applicationController.updateApplications = (req, res, next) => {
   // TODO: check if this causes error if something is not passed in req.body
   const { company_name, url, role_id } = req.body;
 
-  const queryString = `UPDATE applications SET company_name=$2, role_id=$3, url=$4 WHERE _id=$1 RETURNING *`;
+  const queryString = 'UPDATE applications SET company_name=$2, role_id=$3, url=$4 WHERE _id=$1 RETURNING *';
 
   const variables = [user_id, company_name, role, role_id];
+
+  console.log('is this running');
 
   db.query(queryString, variables)
     .then((data) => {
@@ -118,22 +128,21 @@ applicationController.updateApplications = (req, res, next) => {
     })
     .catch((err) => next({
       log: `Error in applicationController.updateApplications: ${err}`,
-      message: { err: 'Error updating applications' }
+      message: { err: 'Error updating applications' },
     }));
-}
+};
 
 // Delete a user's application
-applicationController.deleteApplications = (req, res, next) => {
-  const { _id } = req.body;
+applicationController.deleteApplication = (req, res, next) => {
+  const { id } = req.body;
   const queryString = 'DELETE FROM applications WHERE _id=$1 RETURNING *;';
-  const variables = [_id];
 
-  db.query(queryString, variables)
-    .then(data => {
-      // do smth
+  db.query(queryString, [id])
+    .then((data) => {
+      res.locals.application = data.rows[0];
       return next();
     })
-    .catch(err => next({
+    .catch((err) => next({
       log: `Error in applicationController.deleteApplications: ${err}`,
       message: { err: 'Error deleting applications' }
     }));

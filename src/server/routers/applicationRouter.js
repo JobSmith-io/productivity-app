@@ -1,5 +1,11 @@
 const express = require('express');
-const { getApplication, getAllApplications, addApplication } = require('../controllers/applicationController');
+const {
+  getApplication,
+  getAllApplications,
+  addApplication,
+  updateApplication,
+  deleteApplication,
+} = require('../controllers/applicationController');
 
 const router = express.Router();
 
@@ -12,10 +18,8 @@ router.get('/:id?', getApplication, getAllApplications, (req, res) => {
 // Router for posting a new application
 router.post('/', addApplication, (req, res) => res.status(200).json({ application: res.locals.application }));
 
-// Router to update application (Response, Interview, Offer)
-router.put('/:id', (req, res) => res.status(200).json({}));
-
-// Router to delete application
-router.delete('/:id', (req, res) => res.status(200).json({}));
+router.put('/:id', updateApplication, (req, res) => {
+  return res.status(200).json({ application: res.locals.application })
+});
 
 module.exports = router;

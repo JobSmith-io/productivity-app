@@ -2,26 +2,28 @@ const db = require('../models/dbConnection');
 
 const applicationController = {};
 
+//TODO: protect these routes by somehow checking authentication status and tying it
+// to user_id (so that they can only look up data that they should have access to)
+
 //TODO: switch hard coded user_id to pass in req.body
 // SET DEFAULTS:
-let company_name,
-  url,
-  responded,
+let responded,
   response_date,
   interview_id,
   offer_id,
-  application_date,
+  application_date = new Date(),
   document_id,
-  role_id,
   user_id;
 
 // _id is defaulted to 1 bc users are a stretch feature
-[company_name, url, responded, response_date, interview_id, offer_id,
-  application_date, document_id, role_id, user_id] = ['DEFAULT', 'DEFAULT', 't', Date.now().toLocaleString(), -1, 1];
+[responded, response_date, interview_id, offer_id,
+  application_date, document_id, user_id] = [ 'f', '-1', -1, -1, application_date.toLocaleDateString(), -1, 1];
 
 // Get applications from a user
 applicationController.getApplication = (req, res, next) => {
   const { id } = req.params;
+  if (!id) return next()
+
   const queryString = 'SELECT * FROM applications WHERE user_id = $1 AND _id = $2';
 
   db.query(queryString, [user_id, id])
@@ -36,9 +38,11 @@ applicationController.getApplication = (req, res, next) => {
 }
 
 applicationController.getAllApplications = (req, res, next) => {
-  const queryString = 'SELECT * FROM applications';
+  if (req.params.id !== undefined) return next()
 
-  db.query(queryString)
+  const queryString = 'SELECT * FROM applications WHERE user_id = $1';
+
+  db.query(queryString, [user_id])
     .then((data) => {
       res.locals.allApplications = data.rows;
       return next();
@@ -54,10 +58,9 @@ applicationController.addApplication = (req, res, next) => {
 
   const queryString = 'INSERT INTO applications (company_name, url, responded, response_date, interview_id, offer_id, application_date, document_id, role_id, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;';
 
-  // TODO: CHECK THAT THIS IS ESLINT
   const { company_name, role_id, url } = req.body;
   console.log("In add Application", company_name, role_id, url, "req.body", req.body);
-
+  console.log('user_id: ', user_id)
   const variables = [company_name, url, responded, response_date, interview_id, offer_id, application_date, document_id, role_id, user_id];
 
   db.query(queryString, variables)
@@ -98,7 +101,7 @@ where table1.CustomerId IN (100, 101, 102, 103)
 
 // Update the user's application
 applicationController.updateApplication = (req, res, next) => {
-  // design a query string that will update what is changed
+  // TODO: design a query string that will update only what is changed
   /**
    * user_id
    * company_name
@@ -113,13 +116,13 @@ applicationController.updateApplication = (req, res, next) => {
    * user_id
    */
   // TODO: check if this causes error if something is not passed in req.body
-  const { company_name, url, role_id } = req.body;
+  console.log('req.body', req.body);
+  const { responded, interviewed, offered } = req.body;
+  const { id } = req.params;
+  const queryString = 'UPDATE applications SET responded=$2, interviewed=$3, offered=$4 WHERE _id=$1 RETURNING *';
 
-  const queryString = 'UPDATE applications SET company_name=$2, role_id=$3, url=$4 WHERE _id=$1 RETURNING *';
-
-  const variables = [user_id, company_name, role, role_id];
-
-  console.log('is this running');
+  const variables = [id, responded, interviewed, offered];
+  // console.log('is this running');
 
   db.query(queryString, variables)
     .then((data) => {

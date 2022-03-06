@@ -34,6 +34,7 @@ interviewController.getAllInterviewsForApplication = (req, res, next) => {
   // Check if id (interview) was passed in
   if (!application_id || id) return next();
 
+  //TODO: JOIN here
   const queryString = 'SELECT * FROM ';
 
   db.query(queryString, [application_id])

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Job from './Job';
 import Filter from './Filter';
 
+
 const ListContainer = () => {
   //hook to set state for job component to be rendered
   const [jobs, setJobs] = useState([]);
@@ -54,12 +55,16 @@ const ListContainer = () => {
     getData();
   },[]); 
 
-  console.log(jobs);
+  // delete an entry on the table 
+  // const deleteEntry = (id)=> {
+  //     console.log('user wants this id deleted', id);
+  //     //setJobs([...jobs].filter(obj=> obj.applicationId !== id))
+  // };
+
   // get request func for fetching the jobs from the database
   // deconstruct {application_id, company, role, url } =data 
   const jobsObj = jobs.map((job)=> {
-    
-      return <Job key={`v${job._id}`} props = {job}/>
+      return <Job key={`v${job._id}`} setJobs={setJobs} props={job}/>
   });
     // populate jobs with 
   return (
@@ -73,7 +78,16 @@ const ListContainer = () => {
     </form> 
     {/* <Filter/> */}
     {/* unique key from application_id */}
+    <table> 
+        <thead> 
+      <tr className="columnHeader">
+    <th>Company</th>
+    <th>Role</th>
+    <th>Url</th>
+    </tr> 
+    </thead>
     {jobsObj}
+    </table> 
   </div>
   );
 }

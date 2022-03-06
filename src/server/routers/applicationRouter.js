@@ -18,8 +18,8 @@ router.get('/:id?', getApplication, getAllApplications, (req, res) => {
 // Router for posting a new application
 router.post('/', addApplication, (req, res) => res.status(200).json({ application: res.locals.application }));
 
-router.put('/:id', updateApplication, (req, res) => {
-  return res.status(200).json({ application: res.locals.application })
-});
+router.put('/:id', updateApplication, (req, res) => res.status(200).json({ application: res.locals.application }));
+
+router.delete('/:id', deleteApplication, (req, res) => res.status(200).json({ application: res.locals.application }));
 
 module.exports = router;

@@ -1,11 +1,15 @@
 import React from "react";
+import Filter from './Filter'
 import ListContainer from "./ListContainer";
 
 const BottomContainer = () => {
-    return <div>
-      <h1>Bottom Container</h1>
-      <ListContainer/>
-    </div>;
+    return (
+      <div id="bottom-container">
+        <h1>Bottom Container</h1>
+        <Filter />
+        <ListContainer/>
+      </div>
+    );
   };
 
-export default BottomContainer;  
+export default BottomContainer;

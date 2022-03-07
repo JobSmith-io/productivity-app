@@ -14,7 +14,7 @@ function TopContainer() {
 
   const jobFiltered = jobs.filter((job) => {
     for (const key in filters) {
-      if (filters[key] && job[key] != filters[key]) return false;
+      if (filters[key] !=0 && job[key] != filters[key]) return false;
     }
     return true;
   });
@@ -65,6 +65,7 @@ function TopContainer() {
       <div>
       <Pie data={data} height="200px" width="200px" options={{ maintainAspectRatio: false }}/>
       </div>
+
       <div id="total-jobs" className="statField">Total Applications:</div>
 
       <button

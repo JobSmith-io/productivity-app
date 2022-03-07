@@ -12,8 +12,9 @@ function TopContainer() {
       <div id="total-jobs" className="statField">Total Applications:</div>
 
       <button
+        type="button"
         id="total-responses"
-        className="statField"
+        className="statField bg-green sm:rounded"
         onClick={() => {
           setFilters((filters) => ({
             role_id: filters.role_id,

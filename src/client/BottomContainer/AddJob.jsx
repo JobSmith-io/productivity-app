@@ -3,7 +3,8 @@ import roleMap from '../roleMap';
 import { JobsContext } from '../Context/context';
 
 function AddJob(props) {
-  // Passed down set state function due to possible closure with function refering to state in container
+  // Passed down set state function due to possible closure with function refering to state in 
+  // container
   const setJobs = useContext(JobsContext)[1];
   // click -handler set state to display form
   const [displayForm, setDisplayForm] = useState(false);
@@ -58,15 +59,15 @@ function AddJob(props) {
 
   // conditional to render form upon state change
   return (
-    <div>
+    <div class="flex">
       {displayForm
         ? (
           <>
-            <button onClick={() => setDisplayForm(false)}>Hide form</button>
+            <button type="button" className="bg-gradient-to-t from-gray to-50 font-bold w-10 h-10 text-white rounded-full my-2 mx-auto inline" onClick={() => setDisplayForm(false)}>-</button>
             <div>{form}</div>
           </>
         )
-        : <button onClick={() => setDisplayForm(true)}>Show form</button>}
+        : <button type="button" className="bg-gradient-to-t from-bc1 to-bc2 font-bold w-10 h-10 text-white rounded-full my-2 mx-auto mx-auto inline" onClick={() => setDisplayForm(true)}>+</button>}
     </div>
   );
 }

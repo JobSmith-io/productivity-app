@@ -1,76 +1,79 @@
 import React, { useContext } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import {
+  Chart as ChartJS, ArcElement, Tooltip, Legend,
+} from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import Header from './Header';
 import { FilterContext, JobsContext } from '../Context/context';
+import charColors from './ChartColors';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-
 
 function TopContainer() {
   const [filters, setFilters] = useContext(FilterContext);
   const [jobs] = useContext(JobsContext);
-  console.log("jobs", jobs)
+  console.log('jobs', jobs);
 
   const jobFiltered = jobs.filter((job) => {
     for (const key in filters) {
-      if (filters[key] !=0 && job[key] != filters[key]) return false;
+      if (filters[key] != 0 && job[key] != filters[key]) return false;
     }
     return true;
   });
 
   const companyData = jobFiltered.reduce((acc, job) => {
-    if (!acc[job.company_name]) Object.assign(acc, {[job.company_name]: 1 });
+    if (!acc[job.company_name]) Object.assign(acc, { [job.company_name]: 1 });
     else acc[job.company_name] += 1;
     return acc;
   }, {});
 
-  console.log("companyData", companyData);
+  console.log('companyData', companyData);
   const data = {
     labels: Object.keys(companyData),
     datasets: [
       {
         label: 'labels',
         data: Object.values(companyData),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
+        backgroundColor: charColors[0],
+        borderColor: charColors[1],
         borderWidth: 1,
       },
     ],
-    options: {
-      parsing: {
-        xAxisKey: ''
-      }
+  };
+
+  const options = {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: "left",
+      },
     },
   };
 
+  const btnResponse = !filters.responded ? 'bg-gradient-to-t from-bc1 to-bc2 text-white rounded-full mr-1 px-3' : 'bg-gradient-to-t from-gray to-50 text-dark rounded-full mr-1 px-3';
+
+  const btnInterviewed = !filters.interviewed ? 'bg-gradient-to-t from-bc1 to-bc2 text-white rounded-full mr-1 px-3' : 'bg-gradient-to-t from-gray to-50 text-dark rounded-full mr-1 px-3';
+
+  const btnOffered = !filters.offered ? 'bg-gradient-to-t from-bc1 to-bc2 text-white rounded-full mr-1 px-3' : 'bg-gradient-to-t from-gray to-50 text-dark rounded-full mr-1 px-3';
+
   return (
-    <div id="top-container">
-      <h1>Top Container</h1>
+    <div id="top-container" className="mb-7 items-stretch">
       <Header />
       <div>
-      <Pie data={data} height="200px" width="200px" options={{ maintainAspectRatio: false }}/>
+        <Pie data={data} options={options} height="200px" width="200px" />
       </div>
 
-      <div id="total-jobs" className="statField">Total Applications:</div>
+      <div id="total-jobs" className="statField">
+        Applications:
+        {' '}
+        {jobFiltered.length}
+      </div>
 
       <button
+        type="button"
         id="total-responses"
-        className="statField"
+        className={btnResponse}
         onClick={() => {
           setFilters((filters) => ({
             role_id: filters.role_id,
@@ -80,12 +83,11 @@ function TopContainer() {
           }));
         }}
       >
-        Total Responses:
-        {' '}
-        {filters.responded ? 'On' : 'Off'}
+        Responses
       </button>
-
       <button
+        type="button"
+        className={btnInterviewed}
         id="total-interviews"
         onClick={() => {
           setFilters((filters) => ({
@@ -96,12 +98,11 @@ function TopContainer() {
           }));
         }}
       >
-        Total Interviews:
-        {' '}
-        {filters.interviewed ? 'On' : 'Off'}
+        Interviews
       </button>
-
       <button
+        type="button"
+        className={btnOffered}
         id="total-offers"
         onClick={() => {
           setFilters((filters) => ({
@@ -112,9 +113,7 @@ function TopContainer() {
           }));
         }}
       >
-        Total Offers:
-        {' '}
-        {filters.offered ? 'On' : 'Off'}
+        Offers
       </button>
     </div>
   );

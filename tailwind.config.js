@@ -21,16 +21,19 @@ module.exports = {
       'gray-light': '#d3dce6',
       bc1: '#3da991',
       bc2: '#71dac4',
+      salmon: '#fa8072',
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
     },
+    // width: {
+    //   'filter-btn': '1.0rem',
+    // },
     extend: {
       spacing: {
         128: '32rem',
         144: '36rem',
-        'btn-width': '0.6rem',
       },
       borderRadius: {
         '4xl': '2rem',

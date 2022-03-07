@@ -32,8 +32,6 @@ function ListContainer(props) {
 
   const jobsObj = jobFiltered.sort((a, b) => a._id - b._id).map((job) => <Job key={`v${job._id}`} job={job} />);
 
-  console.log('jobs:', jobsObj);
-
   const columnHeader = (
     <thead>
       <tr className="columnHeader">

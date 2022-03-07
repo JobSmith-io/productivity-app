@@ -6,7 +6,6 @@
   "scripts": {
     "start": "nodemon src/server/server.js",
     "build": "export NODE_ENV=production && webpack",
-    "build:css": "tailwind build -i src/client/styles.css -o ./dist/styles.css",
     "dev": "export NODE_ENV=development && webpack serve --open"
   },
   "keywords": [],

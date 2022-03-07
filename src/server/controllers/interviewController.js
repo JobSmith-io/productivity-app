@@ -34,7 +34,7 @@ interviewController.getAllInterviewsForApplication = (req, res, next) => {
   // Check if id (interview) was passed in
   if (!application_id || id) return next();
 
-  //TODO: JOIN here
+  // TODO: JOIN here
   const queryString = 'SELECT * FROM ';
 
   db.query(queryString, [application_id])
@@ -64,9 +64,16 @@ interviewController.getAllInterviews = (req, res, next) => {
 
 // Add a new interview to a user
 interviewController.addInterview = (req, res, next) => {
-  const queryString = 'INSERT INTO interviews (interview_type, interview_date, feelings, rating, feedback) VALUES ($1, $2, $3, $4, $5);';
-  const { interview_type, interview_date, feelings, rating, feedback } = req.body;
+  // TODO: add interview to join table with application
+  const {
+    interview_type,
+    interview_date,
+    feelings,
+    rating,
+    feedback,
+  } = req.body;
   const variables = [interview_type, interview_date, feelings, rating, feedback];
+  const queryString = 'INSERT INTO interviews (interview_type, interview_date, feelings, rating, feedback) VALUES ($1, $2, $3, $4, $5);';
 
   db.query(queryString, variables)
     .then(data => {

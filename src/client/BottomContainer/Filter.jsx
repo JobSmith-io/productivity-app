@@ -10,7 +10,7 @@ function Filter() {
   const options = Object.keys(roleMap).map((num) => <option key={`roleFilter${num}`} value={num}>{roleMap[num]}</option>);
 
   // This adds an option to remove the filter
-  options.unshift(<option key={`roleFilter${0}`} value={0}>None</option>);
+  options.unshift(<option key={`roleFilter${0}`} value={0}>Select role</option>);
 
   const handleSelect = (e) => {
     setFilters((filters) => ({

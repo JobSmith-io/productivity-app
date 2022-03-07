@@ -12,19 +12,26 @@ function TopContainer() {
   const [jobs] = useContext(JobsContext);
   console.log("jobs", jobs)
 
-  const companyData = jobs.reduce((acc, job) => {
+  const jobFiltered = jobs.filter((job) => {
+    for (const key in filters) {
+      if (filters[key] && job[key] != filters[key]) return false;
+    }
+    return true;
+  });
+
+  const companyData = jobFiltered.reduce((acc, job) => {
     if (!acc[job.company_name]) Object.assign(acc, {[job.company_name]: 1 });
     else acc[job.company_name] += 1;
     return acc;
   }, {});
 
-  console.log("companyData", companyData)
+  console.log("companyData", companyData);
   const data = {
-    labels: [...new Set(jobs.map((job) => job.company_name))],
+    labels: Object.keys(companyData),
     datasets: [
       {
         label: 'labels',
-        data: [1,2,3,4,5,6,7],
+        data: Object.values(companyData),
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -61,9 +68,8 @@ function TopContainer() {
       <div id="total-jobs" className="statField">Total Applications:</div>
 
       <button
-        type="button"
         id="total-responses"
-        className="statField bg-green sm:rounded"
+        className="statField"
         onClick={() => {
           setFilters((filters) => ({
             role_id: filters.role_id,

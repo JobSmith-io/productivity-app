@@ -3,7 +3,7 @@ import { JobsContext } from '../Context/context';
 
 function JobExtended(props) {
   const {
-    _id, responded, interviewed, offered,
+    _id, responded, interviewed, offered, url
   } = props.job;
   const setJobs = useContext(JobsContext)[1];
 
@@ -57,6 +57,8 @@ function JobExtended(props) {
   // How should we allow the user to update fields?
   return (
     <td className="job-extension">
+      <a href={url} target="_blank">link</a>
+      <br />
       <label htmlFor="Responded">Responded</label>
       <input type="checkbox" name="responded" onChange={(e) => onChange(e)} checked={responded} />
       <br />

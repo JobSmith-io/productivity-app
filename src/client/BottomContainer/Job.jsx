@@ -3,7 +3,7 @@ import JobExtended from './JobExtended';
 import roleMap from '../roleMap';
 
 function Job(props) {
-  const { company_name, role_id, url } = props.job;
+  const { company_name, role_id } = props.job;
   const [isExtended, setIsExtended] = useState(props.job.isExtended);
 
   return (
@@ -15,7 +15,6 @@ function Job(props) {
       >
         <td>{company_name}</td>
         <td>{roleMap[role_id]}</td>
-        <td>{url}</td>
       </tr>
       <tr>
         {isExtended ? <JobExtended job={props.job} /> : null}

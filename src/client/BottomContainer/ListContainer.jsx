@@ -37,7 +37,6 @@ function ListContainer(props) {
       <tr className="columnHeader">
         <th>Company</th>
         <th>Role</th>
-        <th>Url</th>
       </tr>
     </thead>
   );

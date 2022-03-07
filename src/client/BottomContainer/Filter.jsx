@@ -29,7 +29,7 @@ function Filter() {
 
   return (
     <>
-      <div onClick={() => setDisplayFilter(!displayFilter)}>filter</div>
+      <div className="bg-gradient-to-t from-bc1 to-bc2 text-white font-bold py-2 px-4 rounded" onClick={() => setDisplayFilter(!displayFilter)}>filter by role</div>
       {displayFilter
         ? <form>{dropDown}</form>
         : null}

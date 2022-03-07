@@ -15,7 +15,7 @@ function App() {
   });
 
   return (
-    <div className="bg-white">
+    <div className="bg-white w-full md:w-3/4 lg:w-1/2">
       <JobsContext.Provider value={[jobs, setJobs]}>
         <FilterContext.Provider value={[filters, setFilters]}>
           <TopContainer />

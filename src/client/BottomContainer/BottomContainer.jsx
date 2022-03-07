@@ -6,8 +6,7 @@ function BottomContainer(props) {
   const { jobs, setJobs } = props;
 
   return (
-    <div id="bottom-container">
-      <h1>Bottom Container</h1>
+    <div id="bottom-container" >
       <Filter />
       <ListContainer />
     </div>

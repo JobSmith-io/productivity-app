@@ -69,7 +69,9 @@ function JobExtended(props) {
       <input type="checkbox" name="offered" onChange={(e) => onChange(e)} checked={offered} />
       <br />
 
-      <button onClick={() => deleteRow(props)}>X</button>
+      <button type="button" onClick={() => deleteRow(props)}>
+        X
+      </button>
     </td>
   );
 }

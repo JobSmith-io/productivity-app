@@ -12,7 +12,7 @@ const mode = process.env.NODE_ENV; // our environment variables are accessible v
 module.exports = {
   // TODO: use brackets if you need multiple entry points (When would we use multiple entry points?)
   // Fix for regenerator-runtime issue
-  entry: ["regenerator-runtime/runtime.js", "./src/client/index.js"],
+  entry: ["regenerator-runtime/runtime.js", "./src/client/index.jsx"],
   // NOTE: webpack will create the build directory for us
   // TODO: check if there's any point to having publicPath in output
   output: {
@@ -73,9 +73,9 @@ module.exports = {
         // and will resolve them. What do we mean by this? css-loader will take all the CSS from
         // the CSS file and generate it to a single string and will pass this to style-loader.
         // style-loader will take this string and will embed it in the style tag in index.html.
-        test: /.(css|scss)$/,
+        test: /.(css)$/,
         exclude: /node_modules/, // webpack is aware of the minified, uglified js and knows to grab that file, so we can exclude it here
-        use: ["style-loader", "css-loader", "sass-loader"], // order by which you place your css loaders matters //
+        use: ["style-loader", "css-loader", "postcss-loader"], // order by which you place your css loaders matters //
       },
       // {
       //   test: /\.png$/,

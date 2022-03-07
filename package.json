@@ -2,7 +2,7 @@
   "name": "jobsmith",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.jsx",
   "scripts": {
     "start": "nodemon src/server/server.js",
     "build": "export NODE_ENV=production && webpack",
@@ -25,12 +25,14 @@
     "pg": "^8.7.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "regenerator-runtime": "^0.13.9"
+    "regenerator-runtime": "^0.13.9",
+    "tailwindcss": "^3.0.23"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.6.0",
     "eslint": "^8.10.0",
@@ -40,6 +42,8 @@
     "eslint-plugin-react": "^7.29.3",
     "html-webpack-plugin": "^5.5.0",
     "nodemon": "^2.0.15",
+    "postcss": "^8.4.8",
+    "postcss-loader": "^6.2.1",
     "react-hot-loader": "^4.13.0",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",

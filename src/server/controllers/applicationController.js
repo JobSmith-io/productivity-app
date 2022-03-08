@@ -2,10 +2,10 @@ const db = require('../models/dbConnection');
 
 const applicationController = {};
 
-//TODO: protect these routes by somehow checking authentication status and tying it
+// TODO: protect these routes by somehow checking authentication status and tying it
 // to user_id (so that they can only look up data that they should have access to)
 
-//TODO: switch hard coded user_id to pass in req.body
+// TODO: switch hard coded user_id to pass in req.body
 // SET DEFAULTS:
 let responded,
   response_date,
@@ -17,12 +17,12 @@ let responded,
 
 // _id is defaulted to 1 bc users are a stretch feature
 [responded, response_date, interview_id, offer_id,
-  application_date, document_id, user_id] = [ 'f', '-1', -1, -1, application_date.toLocaleDateString(), -1, 1];
+  application_date, document_id, user_id] = ['f', '-1', -1, -1, application_date.toLocaleDateString(), -1, 1];
 
 // Get applications from a user
 applicationController.getApplication = (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next()
+  if (!id) return next();
 
   const queryString = 'SELECT * FROM applications WHERE user_id = $1 AND _id = $2';
 
@@ -33,9 +33,9 @@ applicationController.getApplication = (req, res, next) => {
     })
     .catch((err) => next({
       log: `Error in applicationController.getApplications: ${err}`,
-      message: { err: 'Error getting applications' }
+      message: { err: 'Error getting applications' },
     }));
-}
+};
 
 applicationController.getAllApplications = (req, res, next) => {
   if (req.params.id !== undefined) return next()

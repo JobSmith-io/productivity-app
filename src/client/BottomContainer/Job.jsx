@@ -7,18 +7,20 @@ function Job(props) {
   const [isExtended, setIsExtended] = useState(props.job.isExtended);
 
   return (
-    <tbody>
-      <tr onClick={() => {
+    <tbody className="">
+      <tr
+        className="bg-gradient-to-t from-toBlue to-CsBlue"
+        onClick={() => {
         setIsExtended(!isExtended);
-        props.job.isExtended = !props.job.isExtended;
+        props.job.isExtended = !props.job.isExtyended;
       }}
       >
         <td>{company_name}</td>
         <td>{roleMap[role_id]}</td>
       </tr>
-      <tr>
+      
         {isExtended ? <JobExtended job={props.job} /> : null}
-      </tr>
+      
     </tbody>
   );
 }

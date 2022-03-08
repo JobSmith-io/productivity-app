@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import BottomContainer from './BottomContainer/BottomContainer';
 import TopContainer from './TopContainer/TopContainer';
 import { FilterContext, JobsContext } from './Context/context';
-import Filter from './BottomContainer/Filter';
 
 function App() {
   // hook to set state for job component to be rendered

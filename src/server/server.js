@@ -14,9 +14,7 @@ app.use('/api', apiRouter);
 
 // TODO: Serve up a nice 404 page
 // Catch all that sends back 404 when route not found
-app.use((req, res) => {
-  return res.status(404).json('Error: Not Found');
-});
+app.use((req, res) => res.status(404).json('Error: Not Found'));
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {

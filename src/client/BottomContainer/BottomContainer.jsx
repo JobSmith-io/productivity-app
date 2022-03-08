@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ListContainer from './ListContainer';
-import Filter from './Filter';
 
-function BottomContainer(props) {
-  const { jobs, setJobs } = props;
-
+function BottomContainer() {
   return (
-    <div id="bottom-container" >
-      <Filter />
+    <div id="bottom-container">
       <ListContainer />
     </div>
   );

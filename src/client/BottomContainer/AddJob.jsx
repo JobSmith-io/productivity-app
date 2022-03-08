@@ -44,28 +44,25 @@ function AddJob(props) {
   const options = Object.keys(roleMap).map((num) => <option key={`option${num}`} value={num}>{roleMap[num]}</option>);
 
   const form = (
-    <>
-      <div>Form</div>
-      <form className="CreateApp" onSubmit={(e) => submit(e)}>
-        <input id="company-input" type="text" name="company-input" placeholder="company" />
-        <select id="role-input" name="role-input" placeholder="role">
-          {options}
-        </select>
-        <input id="url-input" type="text" name="url-input" placeholder="url" />
-        <input type="submit" value="Add Application" />
-      </form>
-    </>
+    <form className="bg-CsBlue py-3" onSubmit={(e) => submit(e)}>
+      <input className="drop-shadow-md mb-3 ml-3 mr-3 m" id="company-input" type="text" name="company-input" placeholder="company" />
+      <select className="drop-shadow-md mb-3 ml-3 mr-3" id="role-input" name="role-input" placeholder="role">
+        {options}
+      </select>
+      <input className="drop-shadow-md mb-3 ml-3 mr-3" id="url-input" type="text" name="url-input" placeholder="url" />
+      <input type="submit" value="submit" className="bg-gradient-to-t from-bc1 to-bc2 text-white px-3 ml-14 rounded" />
+    </form>
   );
 
   // conditional to render form upon state change
   return (
-    <div class="flex">
+    <div className="flex">
       {displayForm
         ? (
-          <>
-            <button type="button" className="bg-gradient-to-t from-gray to-50 font-bold w-10 h-10 text-white rounded-full my-2 mx-auto inline" onClick={() => setDisplayForm(false)}>-</button>
+          <div>
+            <button type="button" className="bg-gradient-to-t from-gray to-50 font-bold w-10 h-10 text-white rounded-full my-2 mx-auto block" onClick={() => setDisplayForm(false)}>-</button>
             <div>{form}</div>
-          </>
+          </div>
         )
         : <button type="button" className="bg-gradient-to-t from-bc1 to-bc2 font-bold w-10 h-10 text-white rounded-full my-2 mx-auto mx-auto inline" onClick={() => setDisplayForm(true)}>+</button>}
     </div>

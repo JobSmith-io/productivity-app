@@ -56,23 +56,34 @@ function JobExtended(props) {
 
   // How should we allow the user to update fields?
   return (
-    <td className="job-extension">
-      <a href={url} target="_blank">link</a>
-      <br />
-      <label htmlFor="Responded">Responded</label>
-      <input type="checkbox" name="responded" onChange={(e) => onChange(e)} checked={responded} />
-      <br />
-      <label htmlFor="Interviewed">Interviewed</label>
-      <input type="checkbox" name="interviewed" onChange={(e) => onChange(e)} checked={interviewed} />
-      <br />
-      <label htmlFor="Offered">Offered</label>
-      <input type="checkbox" name="offered" onChange={(e) => onChange(e)} checked={offered} />
-      <br />
-
-      <button type="button" onClick={() => deleteRow(props)}>
-        X
-      </button>
-    </td>
+    <>
+      <tr className="bg-gradient-to-t from-white to-CsBlue">
+        <td className="bg-gradient-to-t from-white to-CsBlue">
+          <a className=" pl-2" href={url} target="_blank">link</a>
+        </td>
+        <td className="">
+          <label className="mr-1 pl-2" htmlFor="Responded">Responded</label>
+          <input type="checkbox" name="responded" onChange={(e) => onChange(e)} checked={responded} />
+        </td>
+      </tr>
+      <tr className="">
+        <td className="">
+          <label className="mr-1 pl-2" htmlFor="Interviewed">Interviewed</label>
+          <input type="checkbox" name="interviewed" onChange={(e) => onChange(e)} checked={interviewed} />
+        </td>
+        <td className="">
+          <label className="mr-1 pl-2" htmlFor="Offered">Offered</label>
+          <input type="checkbox" name="offered" onChange={(e) => onChange(e)} checked={offered} />
+        </td>
+      </tr>
+      <tr className="bg-gradient-to-t from-white to-CsBlue">
+        <td className="bg-white">
+          <button className="w-4/7 bg-red text-white ml-2 mb-1 px-3 rounded" type="button" onClick={() => deleteRow(props)}>
+            Delete
+          </button>
+        </td>
+      </tr>
+    </>
   );
 }
 

@@ -34,7 +34,7 @@ function ListContainer(props) {
 
   const columnHeader = (
     <thead>
-      <tr className="columnHeader">
+      <tr className='bg-gradient-to-t from-header-blue to-dark-blue text-white'>
         <th>Company</th>
         <th>Role</th>
       </tr>
@@ -42,13 +42,15 @@ function ListContainer(props) {
   );
 
   return (
+    <>
+    <AddJob />
     <div id="list-container">
-      <AddJob />
-      <table>
+      <table className='mx-auto mt-2 w-full text-left border border-slate-500'>
         {columnHeader}
         {jobsObj}
       </table>
     </div>
+    </>
   );
 }
 export default ListContainer;
